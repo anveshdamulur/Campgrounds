@@ -27,8 +27,10 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('models', path.join(__dirname, 'models'))
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('method'))
-app.get('/', (req, res) => {
-    res.render('home')
+
+app.get('/', async(req, res) => {
+    const campgrounds = await Campground.find({})
+    res.render('Campground/index', { campgrounds });
 })
 app.get('/campgrounds', async(req, res) => {
     const campgrounds = await Campground.find({})
